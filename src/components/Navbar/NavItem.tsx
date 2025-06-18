@@ -5,13 +5,11 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuLink,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { NavItemProps } from "@/types";
 
-
-
-export function NavItem(props: NavItemProps) {
+export function NavItem(props: NavItemProps & { isButton?: boolean }) {
   const isDropdown = "links" in props;
 
   if (!isDropdown) {
@@ -19,7 +17,16 @@ export function NavItem(props: NavItemProps) {
     return (
       <NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href={props.href}>{props.title}</Link>
+          <Link
+            href={props.href}
+            className={
+              props.isButton
+                ? "px-4 py-2 border  border-muted-foreground rounded-md hover:bg-accent hover:text-accent-foreground transition"
+                : ""
+            }
+          >
+            {props.title}
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
     );
@@ -34,9 +41,6 @@ export function NavItem(props: NavItemProps) {
             <li key={link.href}>
               <NavigationMenuLink asChild>
                 <Link href={link.href} className="flex flex-col gap-1">
-                  {link.icon && (
-                    <div className="text-muted-foreground">{link.icon}</div>
-                  )}
                   <div className="font-medium">{link.label}</div>
                   {link.description && (
                     <p className="text-sm text-muted-foreground">

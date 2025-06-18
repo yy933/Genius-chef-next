@@ -1,29 +1,34 @@
-import { NavItem } from "./NavItem"
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
+import { NavItem } from "./NavItem";
 import ModeToggle from "@/components/modeToggle";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-export default function NavMenu(){
+
+export default function NavMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavItem title="About" href="/about" />
         <NavItem
-          title="With Icon"
+          title="Menu"
           links={[
-            { label: "Backlog", href: "#", icon: <CircleHelpIcon /> },
-            { label: "To Do", href: "#", icon: <CircleIcon /> },
-            { label: "Done", href: "#", icon: <CircleCheckIcon /> },
+            {
+              label: "Our Menu",
+              href: "/menu/our-menu",
+              description: "Check out our latest menu!",
+            },
+            {
+              label: "Menu Ideas",
+              href: "/menu/ideas",
+              description:
+                "Running out of dinner ideas? We've got you covered!",
+            },
           ]}
         />
+        <NavItem title="Plans" href="/plans" />
+        <NavItem title="Contact Us" href="/contact" />
+        <NavItem title="Login" href="/login" isButton />
         <ModeToggle></ModeToggle>
       </NavigationMenuList>
     </NavigationMenu>
