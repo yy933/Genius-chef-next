@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Geist, Geist_Mono } from "next/font/google";
-import ModeToggle from "@/components/modeToggle";
+import { Lato, Lora } from "next/font/google";
+import Navbar from "@/components/Navbar/Navbar";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap"
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap"
 });
 
 export const metadata: Metadata = {
@@ -31,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lato.variable} ${lora.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -39,7 +43,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ModeToggle></ModeToggle>
+          <Navbar />
+        
           {children}
         </ThemeProvider>
       </body>
