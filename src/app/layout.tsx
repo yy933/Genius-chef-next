@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${lato.variable} ${lora.variable} antialiased`}
+        className={`${lato.variable} ${lora.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -44,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-        
+
           {children}
         </ThemeProvider>
       </body>

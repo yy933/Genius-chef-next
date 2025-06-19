@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { MenuIcon, XIcon } from "lucide-react";
 import { clsx } from "clsx";
+import Image from "next/image";
 
 export default function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,25 +17,43 @@ export default function NavMenu() {
     : "hidden";
 
   return (
-    <div className="w-full relative">
-      <div className="flex justify-end md:hidden">
-        <ModeToggle className="block md:hidden" />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md border"
-        >
-          {isOpen ? <XIcon size={20} /> : <MenuIcon size={20} />}
-        </button>
+    <div className="w-full relative px-4 md:flex md:justify-center">
+      {/* 上方 row: 左logo + 右漢堡與mode toggle（手機版） */}
+      <div className="flex items-center justify-between py-2 md:hidden">
+        {/* 左側 logo + title */}
+        <div className="flex items-center gap-2">
+          <Image src="/favicon.svg" alt="logo" width={30} height={30} />
+          <h1 className="text-lg font-bold font-serif">Genius Chef</h1>
+        </div>
+
+        {/* 右側 toggle + 漢堡 */}
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 rounded-md border"
+          >
+            {isOpen ? <XIcon size={20} /> : <MenuIcon size={20} />}
+          </button>
+        </div>
       </div>
+
+      {/* 電腦版 nav + 漢堡展開的選單 */}
       <NavigationMenu className="relative">
         <NavigationMenuList
           className={clsx(
             "flex-col gap-2 mt-2",
-            "md:mt-0 md:flex-row md:gap-4 md:flex",
+            "md:mt-0 md:flex md:flex-row md:gap-6 md:justify-center md:items-center",
             mobileOpenClass,
             "md:static md:bg-transparent md:p-0 md:shadow-none md:rounded-none"
           )}
         >
+          {/* 電腦版 logo + title 放中間 */}
+          <div className="hidden md:flex items-center gap-2 pr-6">
+            <Image src="/favicon.svg" alt="logo" width={30} height={30} />
+            <h1 className="text-xl font-bold font-serif">Genius Chef</h1>
+          </div>
+
           <NavItem title="About" href="/about" />
           <NavItem
             title="Menu"
@@ -55,8 +74,10 @@ export default function NavMenu() {
           <NavItem title="Plans" href="/plans" />
           <NavItem title="Contact Us" href="/contact" />
           <NavItem title="Login" href="/login" isButton />
+
+          {/* 桌機版顯示的 mode toggle */}
           <div className="hidden md:block">
-            <ModeToggle /> {/* 桌機顯示 */}
+            <ModeToggle />
           </div>
         </NavigationMenuList>
       </NavigationMenu>
