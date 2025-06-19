@@ -18,15 +18,15 @@ export default function NavMenu() {
 
   return (
     <div className="w-full relative px-4 md:flex md:justify-center">
-      {/* 上方 row: 左logo + 右漢堡與mode toggle（手機版） */}
+      {/* mobile display  */}
       <div className="flex items-center justify-between py-2 md:hidden">
-        {/* 左側 logo + title */}
+        {/* mobile: logo + title */}
         <div className="flex items-center gap-2">
           <Image src="/favicon.svg" alt="logo" width={30} height={30} />
           <h1 className="text-lg font-bold font-serif">Genius Chef</h1>
         </div>
 
-        {/* 右側 toggle + 漢堡 */}
+        {/* mobile: mode toggle + hamburger */}
         <div className="flex items-center gap-2">
           <ModeToggle />
           <button
@@ -38,7 +38,8 @@ export default function NavMenu() {
         </div>
       </div>
 
-      {/* 電腦版 nav + 漢堡展開的選單 */}
+      {/* Desktop display  */}
+      {/* Navmenu: mobile - logo + title at the left; desktop - all items centered  */}
       <NavigationMenu className="relative">
         <NavigationMenuList
           className={clsx(
@@ -48,12 +49,13 @@ export default function NavMenu() {
             "md:static md:bg-transparent md:p-0 md:shadow-none md:rounded-none"
           )}
         >
-          {/* 電腦版 logo + title 放中間 */}
+          {/* logo + title */}
           <div className="hidden md:flex items-center gap-2 pr-6">
             <Image src="/favicon.svg" alt="logo" width={30} height={30} />
             <h1 className="text-xl font-bold font-serif">Genius Chef</h1>
           </div>
 
+          {/* menu items */}
           <NavItem title="About" href="/about" />
           <NavItem
             title="Menu"
@@ -75,7 +77,7 @@ export default function NavMenu() {
           <NavItem title="Contact Us" href="/contact" />
           <NavItem title="Login" href="/login" isButton />
 
-          {/* 桌機版顯示的 mode toggle */}
+          {/* desktop: mode toggle */}
           <div className="hidden md:block">
             <ModeToggle />
           </div>
