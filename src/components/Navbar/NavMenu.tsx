@@ -9,6 +9,7 @@ import { useState } from "react";
 import { MenuIcon, XIcon } from "lucide-react";
 import { clsx } from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,10 +22,12 @@ export default function NavMenu() {
       {/* mobile display  */}
       <div className="flex items-center justify-between py-2 md:hidden">
         {/* mobile: logo + title */}
-        <div className="flex items-center gap-2">
-          <Image src="/favicon.svg" alt="logo" width={30} height={30} />
-          <h1 className="text-lg font-bold font-serif">Genius Chef</h1>
-        </div>
+        <Link href="/">
+          <div className="flex items-center gap-2">
+            <Image src="/favicon.svg" alt="logo" width={30} height={30} />
+            <h1 className="text-lg font-bold font-serif">Genius Chef</h1>
+          </div>
+        </Link>
 
         {/* mobile: mode toggle + hamburger */}
         <div className="flex items-center gap-2">
@@ -50,10 +53,12 @@ export default function NavMenu() {
           )}
         >
           {/* logo + title */}
-          <div className="hidden md:flex items-center gap-2 pr-6">
-            <Image src="/favicon.svg" alt="logo" width={30} height={30} />
-            <h1 className="text-xl font-bold font-serif">Genius Chef</h1>
-          </div>
+          <Link href="/">
+            <div className="hidden md:flex items-center gap-2 pr-6">
+              <Image src="/favicon.svg" alt="logo" width={30} height={30} />
+              <h1 className="text-xl font-bold font-serif">Genius Chef</h1>
+            </div>
+          </Link>
 
           {/* menu items */}
           <NavItem title="About" href="/about" />

@@ -21,7 +21,7 @@ export function NavItem(props: NavItemProps & { isButton?: boolean }) {
             href={props.href}
             className={
               props.isButton
-                ? "px-4 py-2 border  border-muted-foreground rounded-md hover:bg-accent hover:text-accent-foreground transition"
+                ? "px-4 py-2 border  border-muted-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition"
                 : ""
             }
           >
