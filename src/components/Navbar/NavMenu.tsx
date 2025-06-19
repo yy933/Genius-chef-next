@@ -35,6 +35,7 @@ export default function NavMenu() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-md border"
+            aria-label="Toggle mobile menu"
           >
             {isOpen ? <XIcon size={20} /> : <MenuIcon size={20} />}
           </button>
