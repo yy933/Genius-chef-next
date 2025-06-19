@@ -40,8 +40,11 @@ export function NavItem(props: NavItemProps & { isButton?: boolean }) {
           {props.links.map((link) => (
             <li key={link.href}>
               <NavigationMenuLink asChild>
-                <Link href={link.href} className="flex flex-col gap-1">
-                  <div className="font-medium">{link.label}</div>
+                <Link
+                  href={link.href}
+                  className="flex flex-col gap-1 font-medium transition-colors hover:text-primary"
+                >
+                  <div className="font-medium ">{link.label}</div>
                   {link.description && (
                     <p className="text-sm text-muted-foreground">
                       {link.description}
