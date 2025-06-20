@@ -2,21 +2,27 @@
 import Image from "next/image";
 import { slides } from "@/data/carouselContent";
 import AutoPlay from "embla-carousel-autoplay";
+import type { AutoplayType } from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useRef } from "react";
 
 export default function MainCarousel() {
-  const plugin = useRef(AutoPlay({ delay: 2000, stopOnInteraction: false }));
+  const plugin = useRef<AutoplayType | null>(null);
+  if (!plugin.current) {
+    plugin.current = AutoPlay({ delay: 2000, stopOnInteraction: false });
+  }
   return (
     <section className="w-full overflow-hidden relative">
       <Carousel
         className="relative h-[350px] md:h-[500px] w-full"
-        plugins={[plugin.current]}
         role="region"
+        plugins={[plugin.current]}
         aria-roledescription="carousel"
         aria-label="Promotional image carousel"
       >
@@ -32,8 +38,8 @@ export default function MainCarousel() {
                 <Image
                   src={slide.image}
                   alt={slide.caption}
-                  fill
-                  priority
+                  fill={true}
+                  priority={true}
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
@@ -45,6 +51,8 @@ export default function MainCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
     </section>
   );
