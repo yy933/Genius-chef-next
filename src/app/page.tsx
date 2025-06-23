@@ -1,9 +1,11 @@
 import MainCarousel from "@/components/Carousel/Carousel";
+import FeatureSection from "@/components/FeatureSection/FeatureSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <MainCarousel />
-    </main>
+      <FeatureSection />
+    </>
   );
 }
