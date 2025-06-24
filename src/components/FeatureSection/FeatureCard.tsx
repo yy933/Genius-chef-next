@@ -8,7 +8,7 @@ export function FeatureCard({
   imageUrl,
 }: FeatureCardProps) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm pt-0">
       <Image
         src={imageUrl}
         alt={title}
