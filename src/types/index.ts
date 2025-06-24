@@ -14,3 +14,8 @@ export type NavItemProps =
     description: string;
     imageUrl: string;
   };
+
+  export type CommitmentItemProps = {
+    title: string;
+    content: string;
+  };
