@@ -1,10 +1,5 @@
 import { Input } from "@/components/ui/input";
-
-interface NewsletterInputProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
-}
+import { NewsletterInputProps } from "@/types";
 
 export function NewsletterInput({
   value,
@@ -21,7 +16,7 @@ export function NewsletterInput({
         required
         aria-invalid={!!error}
         aria-describedby={error ? "email-error" : undefined}
-        className="placeholder:text-white-foreground"
+        className="placeholder:text-muted-foreground"
       />
       {error && (
         <p id="email-error" className="text-sm text-destructive mt-1">

@@ -1,30 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { NewsletterInput } from "./NewsletterInput";
 import { NewsletterButton } from "./NewsletterButton";
+import { useNewsletterForm } from "@/hooks/useNewsletterForm";
 
 export function NewsletterForm() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      setError("Please provide a valid email.");
-      return;
-    }
-
-    setError("");
-    // TODO: Replace with your backend call (e.g. fetch or axios)
-    console.log("Subscribe:", email);
-  };
+  const { email, setEmail, error, successMessage, handleSubmit } =
+    useNewsletterForm();
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col md:flex-row justify-center items-center gap-4"
+      className="relative flex flex-col md:flex-row justify-center items-center gap-4"
       noValidate
     >
       <NewsletterInput
@@ -32,7 +19,18 @@ export function NewsletterForm() {
         onChange={(e) => setEmail(e.target.value)}
         error={error}
       />
+
       <NewsletterButton />
+      {successMessage && (
+        <div className="absolute inset-0 flex items-center justify-center bg-emerald-700/70 rounded-md z-10">
+          <p
+            className="text-lg text-white  px-4 py-2 rounded shadow-lg"
+            role="status"
+          >
+            {successMessage}
+          </p>
+        </div>
+      )}
     </form>
   );
 }

@@ -26,3 +26,10 @@ export type NavItemProps =
     age: number;
     profession: string;
   }
+
+  export interface NewsletterInputProps {
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    successMessage?: string;
+    error?: string;
+  }
