@@ -19,3 +19,10 @@ export type NavItemProps =
     title: string;
     content: string;
   };
+
+  export interface TestimonialProps {
+    quote: string;
+    name: string;
+    age: number;
+    profession: string;
+  }

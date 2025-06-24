@@ -2,7 +2,6 @@ import CommitmentItem from "./CommitmentItem";
 import { Button } from "@/components/ui/button";
 import { commitments } from "@/data/commitmentContent";
 
-
 export default function CommitmentSection() {
   return (
     <section className="w-full py-10">
@@ -17,7 +16,7 @@ export default function CommitmentSection() {
         </div>
         <div className="text-center mt-10">
           <Button asChild size="lg">
-            <a href="/menu">Check Menu</a>
+            <a href="/menu">Check Our Menu</a>
           </Button>
         </div>
       </div>
