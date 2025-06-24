@@ -21,16 +21,18 @@ export function TestimonialCarousel() {
       className="overflow-hidden relative  min-h-[250px] px-8"
       role="region"
       plugins={[plugin.current]}
-      aria-roledescription="testimonialcarousel"
-      aria-label="Testimonial carousel"
+      aria-roledescription="carousel"
+      aria-label="Testimonial from customers"
     >
+      <span className="sr-only">
+        Use left and right arrow keys to navigate through customer testimonials
+      </span>
       <CarouselContent className="flex gap-6 h-[250px] flex" aria-live="polite">
         {testimonials.map((testimonial, index) => (
           <CarouselItem
             key={testimonial.id}
             className=" min-w-full h-[250px]"
             role="group"
-            aria-roledescription="slide"
             aria-label={`Slide ${index + 1} of ${testimonials.length}`}
           >
             <TestimonialCard {...testimonial} />
