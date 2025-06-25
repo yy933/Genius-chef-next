@@ -1,12 +1,13 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  act,
-
-} from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach } from "vitest";
 import NewsletterForm from "@/components/NewsletterSection/NewsletterForm/NewsletterForm";
+
+function fillAndSubmitEmail(email: string) {
+  const input = screen.getByRole("textbox", { name: /email/i });
+  const button = screen.getByRole("button", { name: /subscribe/i });
+  fireEvent.change(input, { target: { value: email } });
+  fireEvent.click(button);
+}
 
 describe("NewsletterForm", () => {
   beforeEach(() => {
@@ -30,11 +31,7 @@ describe("NewsletterForm", () => {
   // shows error message when invalid email is submitted
   it("shows error message for invalid email", () => {
     render(<NewsletterForm />);
-    const input = screen.getByRole("textbox", { name: /email/i });
-    const button = screen.getByRole("button", { name: /subscribe/i });
-
-    fireEvent.change(input, { target: { value: "invalid-email" } });
-    fireEvent.click(button);
+    fillAndSubmitEmail("invalid-email");
     expect(
       screen.getByText(/please provide a valid email/i)
     ).toBeInTheDocument();
@@ -43,21 +40,14 @@ describe("NewsletterForm", () => {
   // shows success message when valid email is submitted
   it("shows success message for valid email", () => {
     render(<NewsletterForm />);
-    const input = screen.getByRole("textbox", { name: /email/i });
-    const button = screen.getByRole("button", { name: /subscribe/i });
-
-    fireEvent.change(input, { target: { value: "nRuej7hf@example.com" } });
-    fireEvent.click(button);
+    fillAndSubmitEmail("dhHDnvc3@example.com");
     expect(screen.getByText(/thank you for subscribing/i)).toBeInTheDocument();
   });
 
   // success message disappears after 3 seconds
   it("success message disappears after 3 seconds", async () => {
     render(<NewsletterForm />);
-    const input = screen.getByRole("textbox", { name: /email/i });
-    const button = screen.getByRole("button", { name: /subscribe/i });
-    fireEvent.change(input, { target: { value: "user@example.com" } });
-    fireEvent.click(button);
+    fillAndSubmitEmail("dhHDnvc3@example.com");
     const successMessage = screen.getByText(/thank you for subscribing/i);
     expect(successMessage).toBeInTheDocument();
 
@@ -70,6 +60,5 @@ describe("NewsletterForm", () => {
     expect(
       screen.queryByText(/thank you for subscribing/i)
     ).not.toBeInTheDocument();
-   
   });
 });
