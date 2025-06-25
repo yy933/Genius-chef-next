@@ -6,13 +6,12 @@ export function useNewsletterForm(onSuccess?: (email: string) => void) {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    
     e.preventDefault();
-    
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setError("Please provide a valid email.");
       setSuccessMessage("");
+
       return;
     }
 

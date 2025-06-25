@@ -14,6 +14,7 @@ export function NewsletterInput({
         value={value}
         onChange={onChange}
         required
+        aria-label="Email address"
         aria-invalid={!!error}
         aria-describedby={error ? "email-error" : undefined}
         className="placeholder:text-muted-foreground"

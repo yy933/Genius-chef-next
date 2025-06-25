@@ -4,7 +4,7 @@ import { NewsletterInput } from "./NewsletterInput";
 import { NewsletterButton } from "./NewsletterButton";
 import { useNewsletterForm } from "@/hooks/useNewsletterForm";
 
-export function NewsletterForm() {
+export default function NewsletterForm() {
   const { email, setEmail, error, successMessage, handleSubmit } =
     useNewsletterForm();
 

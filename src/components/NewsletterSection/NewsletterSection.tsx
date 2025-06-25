@@ -1,4 +1,4 @@
-import { NewsletterForm } from "./NewsletterForm/NewsletterForm";
+import NewsletterForm  from "./NewsletterForm/NewsletterForm";
 import Image from "next/image";
 
 export function NewsletterSection() {
