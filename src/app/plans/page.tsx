@@ -1,3 +1,10 @@
-export default function PlansPage(){
-  return <h1>Plans page</h1>
+import PlansIntro from "@/components/PlansSection/PlansIntro";
+import PlansForm from "@/components/PlansSection/PlansForm/PlansForm";
+export default function PlansPage() {
+  return (
+    <>
+      <PlansIntro />
+      <PlansForm />
+    </>
+  );
 }

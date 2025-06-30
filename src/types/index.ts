@@ -1,4 +1,4 @@
-import OurBoxes from "@/components/About/OurBoxes";
+import { Control, FieldValues, Path } from "react-hook-form";
 
 export interface NavLink {
   label: string;
@@ -43,8 +43,20 @@ export interface StepProps {
   description: string;
 }
 
-export interface OurBoxesProps{
+export interface OurBoxesProps {
   img: string;
   title: string;
   description: string;
+}
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+export interface FormRadioGroupProps<T extends FieldValues> {
+  name: Path<T>;
+  label?: string;
+  options: Option[];
+  control: Control<T>;
 }
