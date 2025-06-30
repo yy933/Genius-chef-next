@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,9 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { CustomFormLabel } from "@/components/ui/custom-form-label";
 import FormRadioGroup from "./FormRadioGroup";
-
+import FormCheckbox from "./FormCheckbox";
 
 import {
   Select,
@@ -74,58 +72,16 @@ export default function PlansForm() {
               ]}
             />
 
-            <FormField
-              control={form.control}
+            <FormCheckbox
               name="preferences"
-              render={() => (
-                <FormItem>
-                  <CustomFormLabel>
-                    Tell us your Preferences (Optional)
-                  </CustomFormLabel>
-                  <div className="flex flex-col space-y-2 mt-2">
-                    {[
-                      "Dairy Free",
-                      "Gluten Free",
-                      "Vegetarian",
-                      "Quick & Easy",
-                    ].map((option) => (
-                      <FormField
-                        key={option}
-                        control={form.control}
-                        name="preferences"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={option}
-                              className="flex flex-row items-start space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(option)}
-                                  onCheckedChange={(checked) => {
-                                    const newValue = field.value || [];
-                                    if (checked) {
-                                      field.onChange([...newValue, option]);
-                                    } else {
-                                      field.onChange(
-                                        newValue.filter((v) => v !== option)
-                                      );
-                                    }
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {option}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Tell us your Preferences (Optional)"
+              options={[
+                { label: "Dairy Free", value: "dairy-free" },
+                { label: "Gluten Free", value: "gluten-free" },
+                { label: "Vegetarian", value: "vegetarian" },
+                { label: "Quick and Easy", value: "Quick and Easy" },
+              ]}
+              control={form.control}
             />
 
             <FormField
