@@ -6,24 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  Form
 } from "@/components/ui/form";
 import FormRadioGroup from "./FormRadioGroup";
 import FormCheckbox from "./FormCheckbox";
+import FormSelect from "./FormSelect";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 
 const formSchema = z.object({
   menu: z.string(),
@@ -84,71 +73,32 @@ export default function PlansForm() {
               control={form.control}
             />
 
-            <FormField
-              control={form.control}
+            <FormSelect
               name="servings"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Servings</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select the servings " />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    Let us know how many servings you&#39;d like to prepare
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              control={form.control}
+              label="Servings"
+              placeholder="Select the servings"
+              description="Let us know how many servings you'd like to prepare"
+              options={[
+                { label: "2", value: "2" },
+                { label: "4", value: "4" },
+                { label: "6", value: "6" },
+              ]}
             />
 
-            <FormField
-              control={form.control}
+            <FormSelect
               name="meals"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Meals per week</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select meals per week" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    Let us know how many meals you&#39;re going to cook in a
-                    week
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              control={form.control}
+              label="Meals per week"
+              placeholder="Select meals per week"
+              description="Let us know how many meals you're going to cook in a week"
+              options={[
+                { label: "2", value: "2" },
+                { label: "3", value: "3" },
+                { label: "4", value: "4" },
+                { label: "5", value: "5" },
+                { label: "6", value: "6" },
+              ]}
             />
             <Button type="submit">Submit</Button>
           </form>

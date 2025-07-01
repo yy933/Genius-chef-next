@@ -62,9 +62,18 @@ export interface FormRadioGroupProps<T extends FieldValues> {
   control: Control<T>;
 }
 
-export type FormCheckboxGroupProps<T extends FieldValues> {
+export interface FormCheckboxGroupProps<T extends FieldValues> {
   name: Path<T>;
   label?: string;
   options: Option[];
   control: Control<T>;
+}
+
+export interface FormSelectProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
+  label: string;
+  description?: string;
+  placeholder?: string;
+  options: { label: string; value: string }[];
 }
