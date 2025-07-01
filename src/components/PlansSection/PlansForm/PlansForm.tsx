@@ -11,6 +11,7 @@ import {
 import FormRadioGroup from "./FormRadioGroup";
 import FormCheckbox from "./FormCheckbox";
 import FormSelect from "./FormSelect";
+import { menuOptions, preferencesOptions, servingsOptions, mealsPerWeekOptions } from "@/data/plansForm";
 
 
 
@@ -52,53 +53,35 @@ export default function PlansForm() {
             className="space-y-8 max-w-3xl mx-auto py-10 "
           >
             <FormRadioGroup
-              name="menu"
-              label="Choose your menu"
+              name={menuOptions.name}
+              label={menuOptions.label}
               control={form.control}
-              options={[
-                { label: "Classic", value: "classic" },
-                { label: "Vegetarian", value: "vegetarian" },
-              ]}
+              options={menuOptions.options}
             />
 
             <FormCheckbox
-              name="preferences"
-              label="Tell us your Preferences (Optional)"
-              options={[
-                { label: "Dairy Free", value: "dairy-free" },
-                { label: "Gluten Free", value: "gluten-free" },
-                { label: "Vegetarian", value: "vegetarian" },
-                { label: "Quick and Easy", value: "Quick and Easy" },
-              ]}
+              name={preferencesOptions.name}
+              label={preferencesOptions.label}
+              options={preferencesOptions.options}
               control={form.control}
             />
 
             <FormSelect
-              name="servings"
+              name={servingsOptions.name}
               control={form.control}
-              label="Servings"
-              placeholder="Select the servings"
-              description="Let us know how many servings you'd like to prepare"
-              options={[
-                { label: "2", value: "2" },
-                { label: "4", value: "4" },
-                { label: "6", value: "6" },
-              ]}
+              label={servingsOptions.label}
+              placeholder={servingsOptions.placeholder}
+              description={servingsOptions.description}
+              options={servingsOptions.options}
             />
 
             <FormSelect
-              name="meals"
+              name={mealsPerWeekOptions.name}
               control={form.control}
-              label="Meals per week"
-              placeholder="Select meals per week"
-              description="Let us know how many meals you're going to cook in a week"
-              options={[
-                { label: "2", value: "2" },
-                { label: "3", value: "3" },
-                { label: "4", value: "4" },
-                { label: "5", value: "5" },
-                { label: "6", value: "6" },
-              ]}
+              label={mealsPerWeekOptions.label}
+              placeholder={mealsPerWeekOptions.placeholder}
+              description={mealsPerWeekOptions.description}
+              options={mealsPerWeekOptions.options}
             />
             <Button type="submit">Submit</Button>
           </form>

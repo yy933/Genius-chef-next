@@ -1,4 +1,3 @@
-
 import { Control, FieldValues, Path } from "react-hook-form";
 
 export interface NavLink {
@@ -55,25 +54,24 @@ export interface Option {
   value: string;
 }
 
-export interface FormRadioGroupProps<T extends FieldValues> {
+export interface BaseFormField<T extends FieldValues> {
   name: Path<T>;
-  label?: string;
-  options: Option[];
-  control: Control<T>;
-}
-
-export interface FormCheckboxGroupProps<T extends FieldValues> {
-  name: Path<T>;
-  label?: string;
-  options: Option[];
-  control: Control<T>;
-}
-
-export interface FormSelectProps<T extends FieldValues> {
-  name: Path<T>;
-  control: Control<T>;
   label: string;
-  description?: string;
+  options: Option[];
+}
+
+export interface FormRadioGroupProps<T extends FieldValues>
+  extends BaseFormField<T> {
+  control: Control<T>;
+}
+
+export interface FormCheckboxGroupProps<T extends FieldValues>
+  extends BaseFormField<T> {
+  control: Control<T>;
+}
+export interface FormSelectProps<T extends FieldValues>
+  extends BaseFormField<T> {
+  control: Control<T>;
   placeholder?: string;
-  options: { label: string; value: string }[];
+  description?: string;
 }

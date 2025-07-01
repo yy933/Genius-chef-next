@@ -23,7 +23,7 @@ export default function FormCheckbox<T extends FieldValues>({
         <FormItem>
           {label && <CustomFormLabel>{label}</CustomFormLabel>}
           <div className="flex flex-col space-y-2 mt-2">
-            {options.map((option: (typeof options)[number]) => (
+            {options.map((option) => (
               <FormField
                 key={option.value}
                 control={control}
@@ -36,14 +36,14 @@ export default function FormCheckbox<T extends FieldValues>({
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(option)}
+                          checked={field.value?.includes(option.value)}
                           onCheckedChange={(checked) => {
                             const newValue = field.value || [];
                             if (checked) {
-                              field.onChange([...newValue, option]);
+                              field.onChange([...newValue, option.value]);
                             } else {
                               field.onChange(
-                                newValue.filter((v) => v !== option)
+                                newValue.filter((v) => v !== option.value)
                               );
                             }
                           }}
