@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Youtube, Twitter, Mail } from "lucide-react";
+import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 
 export default function Footer() {
@@ -13,31 +14,32 @@ export default function Footer() {
           target="_blank"
           aria-label="Facebook"
         >
-          <Facebook className="w-5 h-5 hover:text-primary transition-colors" />
+          <FaFacebook className="w-5 h-5 hover:text-primary transition-colors" />
         </Link>
         <Link
           href="https://www.instagram.com"
           target="_blank"
           aria-label="Instagram"
         >
-          <Instagram className="w-5 h-5 hover:text-primary transition-colors" />
+          <FaInstagram className="w-5 h-5 hover:text-primary transition-colors" />
         </Link>
         <Link
           href="https://www.youtube.com"
           target="_blank"
           aria-label="YouTube"
         >
-          <Youtube className="w-5 h-5 hover:text-primary transition-colors" />
+          <FaYoutube className="w-5 h-5 hover:text-primary transition-colors" />
         </Link>
         <Link
           href="https://twitter.com"
           target="_blank"
           aria-label="X / Twitter"
         >
-          <Twitter className="w-5 h-5 hover:text-primary transition-colors" />
+          <FaTwitter className="w-5 h-5 hover:text-primary transition-colors" />
         </Link>
         <Link href="mailto:hello@geniuschef.com" aria-label="Email">
-          <Mail className="w-5 h-5 hover:text-primary transition-colors" />
+         
+          <MdEmail className="w-5 h-5 hover:text-primary transition-colors" />
         </Link>
       </div>
     </footer>
