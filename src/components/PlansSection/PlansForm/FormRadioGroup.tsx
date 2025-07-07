@@ -6,6 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { FormLegend } from "@/components/ui/form-legend";
 import { FormRadioGroupProps } from "@/types";
 import { FieldValues } from "react-hook-form";
 
@@ -23,14 +24,7 @@ export default function FormRadioGroup<T extends FieldValues>({
       render={({ field }) => (
         <FormItem className="space-y-3 ">
           <fieldset>
-            {label && (
-              <legend
-                id={labelId}
-                className="text-base font-semibold text-emerald-700 dark:text-emerald-100"
-              >
-                {label}
-              </legend>
-            )}
+            {label && <FormLegend id={labelId}>{label}</FormLegend>}
           </fieldset>
 
           <FormControl>

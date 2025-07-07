@@ -12,9 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormLegend } from "@/components/ui/form-legend";
 import { FieldValues } from "react-hook-form";
 import { FormSelectProps } from "@/types";
-import { cn } from "@/lib/utils";
+
 
 export default function FormSelect<T extends FieldValues>({
   name,
@@ -33,16 +34,7 @@ export default function FormSelect<T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <fieldset className="space-y-3 border-0 p-0">
-            {label && (
-              <legend
-                id={labelId}
-                className={cn(
-                  "text-emerald-700 dark:text-emerald-100 text-lg md:text-xl"
-                )}
-              >
-                {label}
-              </legend>
-            )}
+            {label && <FormLegend id={labelId}>{label}</FormLegend>}
 
             <Select
               onValueChange={field.onChange}

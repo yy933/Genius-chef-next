@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/form";
 
 import { FormCheckboxGroupProps } from "@/types";
+import { FormLegend } from "@/components/ui/form-legend";
 import { FieldValues } from "react-hook-form";
 export default function FormCheckbox<T extends FieldValues>({
   name,
@@ -23,9 +24,7 @@ export default function FormCheckbox<T extends FieldValues>({
         <FormItem>
           <div className="flex flex-col space-y-2 mt-2">
             <fieldset className="space-y-2">
-              <legend className="text-emerald-700 dark:text-emerald-100 text-lg md:text-xl">
-                {label}
-              </legend>
+              <FormLegend>{label}</FormLegend>
               {options.map((option) => {
                 const checkboxId = `${name}-${option.value}`;
                 return (
