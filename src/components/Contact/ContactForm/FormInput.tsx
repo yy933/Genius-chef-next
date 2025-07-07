@@ -22,7 +22,12 @@ export default function FormInput<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor={name}>{label}</FormLabel>
+          <FormLabel
+            htmlFor={name}
+            className="text-emerald-700 dark:text-emerald-100 text-lg md:text-xl"
+          >
+            {label}
+          </FormLabel>
           <FormControl>
             <Input
               id={name}

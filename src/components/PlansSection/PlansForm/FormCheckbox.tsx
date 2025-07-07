@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { CustomFormLabel } from "@/components/ui/custom-form-label";
+
 import { FormCheckboxGroupProps } from "@/types";
 import { FieldValues } from "react-hook-form";
 export default function FormCheckbox<T extends FieldValues>({
@@ -21,40 +21,53 @@ export default function FormCheckbox<T extends FieldValues>({
       name={name}
       render={() => (
         <FormItem>
-          {label && <CustomFormLabel>{label}</CustomFormLabel>}
           <div className="flex flex-col space-y-2 mt-2">
-            {options.map((option) => (
-              <FormField
-                key={option.value}
-                control={control}
-                name={name}
-                render={({ field }) => {
-                  return (
-                    <FormItem
-                      key={option.value}
-                      className="flex flex-row items-start space-x-3 space-y-0"
-                    >
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value?.includes(option.value)}
-                          onCheckedChange={(checked) => {
-                            const newValue = field.value || [];
-                            if (checked) {
-                              field.onChange([...newValue, option.value]);
-                            } else {
-                              field.onChange(
-                                newValue.filter((v) => v !== option.value)
-                              );
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <FormLabel className="font-normal">{option.label}</FormLabel>
-                    </FormItem>
-                  );
-                }}
-              />
-            ))}
+            <fieldset className="space-y-2">
+              <legend className="text-emerald-700 dark:text-emerald-100 text-lg md:text-xl">
+                {label}
+              </legend>
+              {options.map((option) => {
+                const checkboxId = `${name}-${option.value}`;
+                return (
+                  <FormField
+                    key={option.value}
+                    control={control}
+                    name={name}
+                    render={({ field }) => {
+                      return (
+                        <FormItem
+                          key={option.value}
+                          className="flex flex-row items-start space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              id={checkboxId}
+                              checked={field.value?.includes(option.value)}
+                              onCheckedChange={(checked) => {
+                                const newValue = field.value || [];
+                                if (checked) {
+                                  field.onChange([...newValue, option.value]);
+                                } else {
+                                  field.onChange(
+                                    newValue.filter((v) => v !== option.value)
+                                  );
+                                }
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel
+                            htmlFor={checkboxId}
+                            className="font-normal"
+                          >
+                            {option.label}
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                );
+              })}
+            </fieldset>
           </div>
           <FormMessage />
         </FormItem>
