@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormInput from "@/components/Contact/ContactForm/FormInput";
+import FormTextarea from "@/components/Contact/ContactForm/FormTextarea";
 import { useState } from "react";
 
 const schema = z.object({
@@ -67,6 +68,12 @@ export default function ContactForm() {
               label="Subject"
               placeholder="Enter the subject of inquiry"
               type="text"
+            />
+            <FormTextarea
+              name="message"
+              control={form.control}
+              label="Message"
+              placeholder="Enter your message"
             />
           </form>
         </Form>
