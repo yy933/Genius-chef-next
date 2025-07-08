@@ -1,47 +1,15 @@
 "use client";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { Form } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import FormInput from "@/components/Contact/ContactForm/FormInput";
 import FormTextarea from "@/components/Contact/ContactForm/FormTextarea";
 import { Button } from "@/components/ui/button";
 import { nameInput, emailInput, subjectInput, messageInput } from "@/data/contactForm";
-import { useState } from "react";
+import { useContactForm } from "@/hooks/useContactForm";
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
-  subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(1, "Message is required"),
-});
 
-type ContactFormData = z.infer<typeof schema>;
 export default function ContactForm() {
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(schema),
-  });
-
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        setStatus("success");
-        form.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
-  };
+  const { form, onSubmit, status } = useContactForm();
   return (
     <section className="w-full py-10">
       <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md">
