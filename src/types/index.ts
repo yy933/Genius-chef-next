@@ -57,21 +57,29 @@ export interface Option {
 export interface BaseFormField<T extends FieldValues> {
   name: Path<T>;
   label: string;
-  options: Option[];
 }
 
-export interface FormRadioGroupProps<T extends FieldValues>
-  extends BaseFormField<T> {
+export interface FormRadioGroupProps<T extends FieldValues> extends BaseFormField<T> {
   control: Control<T>;
+  options: Option[];
 }
 
 export interface FormCheckboxGroupProps<T extends FieldValues>
   extends BaseFormField<T> {
   control: Control<T>;
+  options: Option[];
 }
-export interface FormSelectProps<T extends FieldValues>
+export interface FormSelectProps<T extends FieldValues> extends BaseFormField<T> {
+  control: Control<T>;
+  options: Option[];
+  placeholder?: string;
+  description?: string;
+}
+
+
+export interface FormInputProps<T extends FieldValues>
   extends BaseFormField<T> {
   control: Control<T>;
   placeholder?: string;
-  description?: string;
+  type?: string;
 }

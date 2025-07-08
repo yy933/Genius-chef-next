@@ -1,3 +1,10 @@
+import ContactIntro from "@/components/Contact/ContactIntro";
+import ContactForm from "@/components/Contact/ContactForm/ContactForm";
 export default function ContactPage() {
-  return <h1>Contact Page</h1>
+  return (
+    <>
+      <ContactIntro />
+      <ContactForm />
+    </>
+  );
 }
