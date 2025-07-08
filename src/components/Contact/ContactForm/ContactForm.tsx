@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormInput from "@/components/Contact/ContactForm/FormInput";
 import FormTextarea from "@/components/Contact/ContactForm/FormTextarea";
+import { Button } from "@/components/ui/button";
+import { nameInput, emailInput, subjectInput, messageInput } from "@/data/contactForm";
 import { useState } from "react";
 
 const schema = z.object({
@@ -49,37 +51,38 @@ export default function ContactForm() {
             className="space-y-8 max-w-3xl mx-auto py-10 "
           >
             <FormInput
-              name="name"
+              name={nameInput.name}
               control={form.control}
-              label="Name"
-              placeholder="Enter your name"
-              type="text"
+              label={nameInput.label}
+              placeholder={nameInput.placeholder}
+              type={nameInput.type}
             />
             <FormInput
-              name="email"
+              name={emailInput.name}
               control={form.control}
-              label="Email"
-              placeholder="Enter your email"
-              type="email"
+              label={emailInput.label}
+              placeholder={emailInput.placeholder}
+              type={emailInput.type}
             />
             <FormInput
-              name="subject"
+              name={subjectInput.name}
               control={form.control}
-              label="Subject"
-              placeholder="Enter the subject of inquiry"
-              type="text"
+              label={subjectInput.label}
+              placeholder={subjectInput.placeholder}
+              type={subjectInput.type}
             />
             <FormTextarea
-              name="message"
+              name={messageInput.name}
               control={form.control}
-              label="Message"
-              placeholder="Enter your message"
+              label={messageInput.label}
+              placeholder={messageInput.placeholder}
             />
+            <Button type="submit">Submit</Button>
           </form>
         </Form>
       </div>
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-center mb-6">
+        <h3 className="text-xl font-semibold text-center my-6">
           Or find us on:
         </h3>
         <div className="flex justify-center gap-6 text-muted-foreground">
