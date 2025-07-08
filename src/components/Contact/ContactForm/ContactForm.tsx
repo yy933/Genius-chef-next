@@ -54,6 +54,20 @@ export default function ContactForm() {
               placeholder="Enter your name"
               type="text"
             />
+            <FormInput
+              name="email"
+              control={form.control}
+              label="Email"
+              placeholder="Enter your email"
+              type="email"
+            />
+            <FormInput
+              name="subject"
+              control={form.control}
+              label="Subject"
+              placeholder="Enter the subject of inquiry"
+              type="text"
+            />
           </form>
         </Form>
       </div>
