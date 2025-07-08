@@ -33,6 +33,7 @@ export default function FormTextarea<T extends FieldValues>({
               placeholder={placeholder}
               {...field}
               className="min-h-[120px]"
+              value={field.value ?? ""}
             />
           </FormControl>
           <FormMessage />

@@ -3,16 +3,38 @@ import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/Contact/ContactForm/FormInput";
 import FormTextarea from "@/components/Contact/ContactForm/FormTextarea";
+import AlertMessage from "@/components/Contact/ContactForm/AlertMessage";
 import { Button } from "@/components/ui/button";
-import { nameInput, emailInput, subjectInput, messageInput } from "@/data/contactForm";
+import {
+  nameInput,
+  emailInput,
+  subjectInput,
+  messageInput,
+} from "@/data/contactForm";
 import { useContactForm } from "@/hooks/useContactForm";
-
 
 export default function ContactForm() {
   const { form, onSubmit, status } = useContactForm();
   return (
     <section className="w-full py-10">
-      <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md">
+      <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md ">
+        <div className="grid w-full max-w-xl items-start gap-4 mt-6 mx-auto">
+          {status === "success" && (
+            <AlertMessage
+              status="success"
+              alertTitle="Success!"
+              alertDescription="Message sent successfully!"
+            />
+          )}
+          {status === "error" && (
+            <AlertMessage
+              status="error"
+              alertTitle="Something went wrong!"
+              alertDescription="Please try again."
+            />
+          )}
+        </div>
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

@@ -34,12 +34,12 @@ export default function FormInput<T extends FieldValues>({
               type={type ?? "text"}
               placeholder={placeholder}
               {...field}
+              value={field.value ?? ""}
             />
           </FormControl>
           <FormMessage />
         </FormItem>
       )}
     />
-    
   );
 }
