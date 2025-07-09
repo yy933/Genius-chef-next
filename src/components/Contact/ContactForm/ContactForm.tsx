@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/Contact/ContactForm/FormInput";
 import FormTextarea from "@/components/Contact/ContactForm/FormTextarea";
-import AlertMessage from "@/components/Contact/ContactForm/AlertMessage";
+import AlertMessage from "@/components/ui/AlertMessage";
 import { Button } from "@/components/ui/button";
 import {
   nameInput,
@@ -11,10 +11,15 @@ import {
   subjectInput,
   messageInput,
 } from "@/data/contactForm";
-import { useContactForm } from "@/hooks/useContactForm";
+import { useFormWithStatus } from "@/hooks/useFormWithStatus";
+import { contactFormSchema } from "@/schemas/contactFormSchema";
+import { apiSubmit } from "@/utils/apiSubmit";
 
 export default function ContactForm() {
-  const { form, onSubmit, status } = useContactForm();
+  const { form, status, onSubmit } = useFormWithStatus({
+      schema: contactFormSchema,
+      onSubmit: (data) => apiSubmit("/api/contact", data),
+    });
   return (
     <section className="w-full py-10">
       <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md ">

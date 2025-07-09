@@ -7,4 +7,4 @@ export const contactFormSchema = z.object({
   message: z.string().min(1, "Message is required"),
 });
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
+export type ContactFormSchemaType = z.infer<typeof contactFormSchema>;

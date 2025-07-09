@@ -1,45 +1,27 @@
 "use client";
 
-import { toast } from "sonner";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import FormRadioGroup from "./FormRadioGroup";
 import FormCheckbox from "./FormCheckbox";
 import FormSelect from "./FormSelect";
-import { menuOptions, preferencesOptions, servingsOptions, mealsPerWeekOptions } from "@/data/plansForm";
-
-
-
-const formSchema = z.object({
-  menu: z.string(),
-  preferences: z.array(z.string()).optional(),
-  servings: z.string(),
-  meals: z.string(),
-});
+import {
+  menuOptions,
+  preferencesOptions,
+  servingsOptions,
+  mealsPerWeekOptions,
+} from "@/data/plansForm";
+import AlertMessage from "@/components/ui/AlertMessage";
+import { useFormWithStatus } from "@/hooks/useFormWithStatus";
+import { plansFormSchema } from "@/schemas/plansFormSchema";
+import { apiSubmit } from "@/utils/apiSubmit";
 
 export default function PlansForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { form, status, onSubmit } = useFormWithStatus({
+    schema: plansFormSchema,
+    onSubmit: (data) => apiSubmit("/api/plans", data),
   });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
-    }
-  }
+  
 
   return (
     <section className="w-full py-10">
@@ -47,6 +29,20 @@ export default function PlansForm() {
         Enjoy fresh food from us with just a few clicks away!
       </h3>
       <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md">
+        {status === "success" && (
+          <AlertMessage
+            status="success"
+            alertTitle="Success!"
+            alertDescription="We have received your request!"
+          />
+        )}
+        {status === "error" && (
+          <AlertMessage
+            status="error"
+            alertTitle="Something went wrong!"
+            alertDescription="Please try again."
+          />
+        )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
