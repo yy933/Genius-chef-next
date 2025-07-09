@@ -1,9 +1,5 @@
 "use client";
 
-import { toast } from "sonner";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form
@@ -12,35 +8,15 @@ import FormRadioGroup from "./FormRadioGroup";
 import FormCheckbox from "./FormCheckbox";
 import FormSelect from "./FormSelect";
 import { menuOptions, preferencesOptions, servingsOptions, mealsPerWeekOptions } from "@/data/plansForm";
+import { usePlansForm } from "@/hooks/usePlansForm";
 
 
 
-const formSchema = z.object({
-  menu: z.string(),
-  preferences: z.array(z.string()).optional(),
-  servings: z.string(),
-  meals: z.string(),
-});
+
 
 export default function PlansForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
-    }
-  }
-
+  const { form, onSubmit } = usePlansForm();
+  
   return (
     <section className="w-full py-10">
       <h3 className="text-xl font-semibold text-center mb-6">
