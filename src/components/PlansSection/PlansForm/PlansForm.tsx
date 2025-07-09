@@ -1,28 +1,48 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import FormRadioGroup from "./FormRadioGroup";
 import FormCheckbox from "./FormCheckbox";
 import FormSelect from "./FormSelect";
-import { menuOptions, preferencesOptions, servingsOptions, mealsPerWeekOptions } from "@/data/plansForm";
-import { usePlansForm } from "@/hooks/usePlansForm";
-
-
-
-
+import {
+  menuOptions,
+  preferencesOptions,
+  servingsOptions,
+  mealsPerWeekOptions,
+} from "@/data/plansForm";
+import AlertMessage from "@/components/ui/AlertMessage";
+import { useFormWithStatus } from "@/hooks/useFormWithStatus";
+import { plansFormSchema } from "@/schemas/plansFormSchema";
+import { apiSubmit } from "@/utils/apiSubmit";
 
 export default function PlansForm() {
-  const { form, onSubmit } = usePlansForm();
+  const { form, status, onSubmit } = useFormWithStatus({
+    schema: plansFormSchema,
+    onSubmit: (data) => apiSubmit("/api/plans", data),
+  });
   
+
   return (
     <section className="w-full py-10">
       <h3 className="text-xl font-semibold text-center mb-6">
         Enjoy fresh food from us with just a few clicks away!
       </h3>
       <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md">
+        {status === "success" && (
+          <AlertMessage
+            status="success"
+            alertTitle="Success!"
+            alertDescription="We have received your request!"
+          />
+        )}
+        {status === "error" && (
+          <AlertMessage
+            status="error"
+            alertTitle="Something went wrong!"
+            alertDescription="Please try again."
+          />
+        )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
