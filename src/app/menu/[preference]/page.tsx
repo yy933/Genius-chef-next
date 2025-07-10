@@ -11,7 +11,7 @@ import MenuTabs from "@/components/Menu/MenuTabs";
 import RecipeCard from "@/components/Menu/RecipeCard";
 import Pagination from "@/components/Menu/Pagination";
 import GoBackButtonGroup from "@/components/Menu/GoBackButtonGroup";
-import { MenuPreferenceProps } from "@/types";
+import { MenuParamsProps } from "@/types";
 
 
 

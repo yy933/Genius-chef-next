@@ -1,4 +1,6 @@
 import { Control, FieldValues, Path } from "react-hook-form";
+export * from "./recipe";
+export * from "./menu";
 
 export interface NavLink {
   label: string;
@@ -85,12 +87,4 @@ export interface FormInputProps<T extends FieldValues>
   type?: string;
 }
 
-export interface MenuPreferenceProps {
-  params: {
-    preference: string;
-  };
-  searchParams: {
-    page?: string;
-    limit?: string;
-  };
-}
+
