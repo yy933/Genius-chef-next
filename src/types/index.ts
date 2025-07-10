@@ -59,7 +59,8 @@ export interface BaseFormField<T extends FieldValues> {
   label: string;
 }
 
-export interface FormRadioGroupProps<T extends FieldValues> extends BaseFormField<T> {
+export interface FormRadioGroupProps<T extends FieldValues>
+  extends BaseFormField<T> {
   control: Control<T>;
   options: Option[];
 }
@@ -69,17 +70,27 @@ export interface FormCheckboxGroupProps<T extends FieldValues>
   control: Control<T>;
   options: Option[];
 }
-export interface FormSelectProps<T extends FieldValues> extends BaseFormField<T> {
+export interface FormSelectProps<T extends FieldValues>
+  extends BaseFormField<T> {
   control: Control<T>;
   options: Option[];
   placeholder?: string;
   description?: string;
 }
 
-
 export interface FormInputProps<T extends FieldValues>
   extends BaseFormField<T> {
   control: Control<T>;
   placeholder?: string;
   type?: string;
+}
+
+export interface MenuPreferenceProps {
+  params: {
+    preference: string;
+  };
+  searchParams: {
+    page?: string;
+    limit?: string;
+  };
 }
