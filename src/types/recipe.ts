@@ -11,3 +11,6 @@ export interface RecipeProps {
   instruction: string[];
   fullDetailsUrl?: string;
 }
+export interface RecipeCardProps {
+  recipe: RecipeProps;
+}

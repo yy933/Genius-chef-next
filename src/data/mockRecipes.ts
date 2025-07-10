@@ -1,14 +1,14 @@
-import { Recipe } from "@/types";
+import { RecipeProps } from "@/types";
 
-export const mockRecipes: Recipe[] = [
+export const mockRecipes: RecipeProps[] = [
   {
     id: "1",
     dishName: "Spaghetti Carbonara",
-    image: "/images/carbonara.jpg",
+    image: "/mockRecipeImages/pasta.jpg",
     servings: 2,
     cookingTime: 20,
     vegetarian: false,
-    glutenFree: false,
+    glutenFree: true,
     dairyFree: false,
     ingredient: ["Spaghetti", "Eggs", "Parmesan", "Bacon"],
     instruction: ["Boil pasta", "Fry bacon", "Mix with egg & cheese"],
@@ -17,7 +17,7 @@ export const mockRecipes: Recipe[] = [
   {
     id: "2",
     dishName: "Chicken Alfredo",
-    image: "/images/alfredo.jpg",
+    image: "/mockRecipeImages/curry.jpg",
     servings: 2,
     cookingTime: 20,
     vegetarian: false,
@@ -29,13 +29,13 @@ export const mockRecipes: Recipe[] = [
   },
   {
     id: "3",
-    dishName: "Chicken Alfredo",
-    image: "/images/alfredo.jpg",
+    dishName: "Veggies",
+    image: "/mockRecipeImages/veggies.jpg",
     servings: 2,
     cookingTime: 20,
-    vegetarian: false,
-    glutenFree: false,
-    dairyFree: false,
+    vegetarian: true,
+    glutenFree: true,
+    dairyFree: true,
     ingredient: ["Chicken", "Pasta", "Parmesan", "Bacon"],
     instruction: ["Boil pasta", "Fry bacon", "Mix with egg & cheese"],
     fullDetailsUrl: "#",
@@ -43,7 +43,7 @@ export const mockRecipes: Recipe[] = [
   {
     id: "4",
     dishName: "Chicken Alfredo",
-    image: "/images/alfredo.jpg",
+    image: "/mockRecipeImages/curry.jpg",
     servings: 2,
     cookingTime: 20,
     vegetarian: false,
@@ -56,10 +56,10 @@ export const mockRecipes: Recipe[] = [
   {
     id: "5",
     dishName: "Chicken Alfredo",
-    image: "/images/alfredo.jpg",
+    image: "/mockRecipeImages/curry.jpg",
     servings: 2,
     cookingTime: 20,
-    vegetarian: false,
+    vegetarian: true,
     glutenFree: false,
     dairyFree: false,
     ingredient: ["Chicken", "Pasta", "Parmesan", "Bacon"],
@@ -69,7 +69,7 @@ export const mockRecipes: Recipe[] = [
   {
     id: "6",
     dishName: "Chicken Alfredo",
-    image: "/images/alfredo.jpg",
+    image: "/mockRecipeImages/curry.jpg",
     servings: 2,
     cookingTime: 20,
     vegetarian: false,
