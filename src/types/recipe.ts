@@ -1,4 +1,4 @@
-export interface Recipe {
+export interface RecipeProps {
   id: string;
   dishName: string;
   image: string;
