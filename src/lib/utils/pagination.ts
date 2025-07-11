@@ -1,12 +1,7 @@
 // lib/utils/pagination.ts
 import { redirect } from "next/navigation";
+import { ValidatePaginationParamsProps } from "@/types";
 
-interface ValidatePaginationParamsProps {
-  page: number;
-  limit: number;
-  totalItems: number;
-  basePath: string;
-}
 
 export function validatePaginationParams({
   page,

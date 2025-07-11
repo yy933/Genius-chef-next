@@ -10,20 +10,8 @@ import { mockRecipes } from "@/data/mockRecipes";
 //   if (!res.ok) throw new Error("Failed to fetch menu data");
 //   return res.json();
 // }
-import { RecipeProps } from "@/types";
-type GetMenuDataProps =
-  | { previewOnly: true; totalItems: number }
-  | {
-      previewOnly?: false;
-      recipes: RecipeProps[];
-      pagination: {
-        currentPage: number;
-        totalPages: number;
-        next: number;
-        prev: number;
-        pages: number[];
-      };
-    };
+import { RecipeProps, GetMenuDataProps } from "@/types";
+
 
 export function isPreviewOnly(
   data: GetMenuDataProps
