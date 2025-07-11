@@ -1,4 +1,4 @@
-export interface MenuParamsProps {
+interface MenuParamsProps {
   params: {
     preference: string;
   };
@@ -7,3 +7,10 @@ export interface MenuParamsProps {
     limit?: string;
   };
 }
+
+interface MenuTabsProps{
+  page: number,
+  limit: number
+}
+
+export type { MenuParamsProps, MenuTabsProps }

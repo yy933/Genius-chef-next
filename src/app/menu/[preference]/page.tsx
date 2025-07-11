@@ -7,7 +7,7 @@
  */
 import { getMenuData } from "@/lib/api/menu"; 
 import { RecipeProps } from "@/types/recipe";
-// import MenuTabs from "@/components/Menu/MenuTabs";
+import MenuTabs from "@/components/Menu/MenuTabs";
 import RecipeCard from "@/components/Menu/RecipeCard";
 // import Pagination from "@/components/Menu/Pagination";
 // import GoBackButtonGroup from "@/components/Menu/GoBackButtonGroup";
@@ -31,28 +31,21 @@ export default async function WeeklyMenuPage({ params, searchParams }: MenuParam
         <h1 className="text-3xl font-bold">Weekly Menu</h1>
       </div>
       {/* <pre>{JSON.stringify({ recipes, pagination }, null, 2)}</pre> */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <MenuTabs page={page} limit={limit} />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {recipes.map((recipe: RecipeProps) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
 
-      {/* <MenuTabs active={preference} />
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recipes.map((recipe: RecipeProps) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
-
-      <Pagination
+      {/* <Pagination
         currentPage={pagination.currentPage}
         totalPages={pagination.totalPages}
         preference={preference}
         limit={limit}
       />
 
-      <GoBackButtonGroup /> */}
+      <GoBackButtonGroup />  */}
     </section>
   );
 }
