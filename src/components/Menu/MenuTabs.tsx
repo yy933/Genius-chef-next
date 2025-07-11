@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/className-merge";
 import { MenuTabsProps } from "@/types";
 
-
-export default function MenuTabs({ page, limit }: MenuTabsProps) {
-  const pathname = usePathname();
-  const preference = pathname.split("/")[2];
+export default function MenuTabs({ page, limit, active }: MenuTabsProps) {
+  // const pathname = usePathname();
 
   const tabs = [
     { label: "Classic", value: "classic" },
@@ -18,10 +16,10 @@ export default function MenuTabs({ page, limit }: MenuTabsProps) {
   return (
     <ul className="flex justify-center gap-4 mb-6">
       {tabs.map((tab) => {
-        const isActive = preference === tab.value;
+        const isActive = active === tab.value;
 
         return (
-          <li key={tab.value} >
+          <li key={tab.value}>
             <Link
               href={`/menu/${tab.value}?page=${page}&limit=${limit}`}
               className={cn(

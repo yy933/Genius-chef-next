@@ -5,47 +5,66 @@
  * including Classic and Vegetarian. Recipes are shown as cards with
  * modals, tabs for switching categories, and pagination.
  */
-import { getMenuData } from "@/lib/api/menu"; 
-import { RecipeProps } from "@/types/recipe";
-import MenuTabs from "@/components/Menu/MenuTabs";
 import RecipeCard from "@/components/Menu/RecipeCard";
-// import Pagination from "@/components/Menu/Pagination";
-// import GoBackButtonGroup from "@/components/Menu/GoBackButtonGroup";
-import { MenuParamsProps } from "@/types";
+import MenuTabs from "@/components/Menu/MenuTabs";
+import MenuPagination from "@/components/Menu/Pagination";
+import { isFullMenuData, isPreviewOnly, getMenuData } from "@/lib/api/menu";
+import { MenuParamsProps, RecipeProps } from "@/types";
+import { validatePaginationParams } from "@/lib/utils/pagination";
 
-
-
-export default async function WeeklyMenuPage({ params, searchParams }: MenuParamsProps) {
+export default async function WeeklyMenuPage({
+  params,
+  searchParams,
+}: MenuParamsProps) {
   const preference = params.preference;
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 6;
 
-  const { recipes, pagination } = await getMenuData(preference, page, limit); 
-  
-  console.log("Mock Recipes:", recipes);
-  console.log("Pagination:", pagination);
+  const preview = await getMenuData(preference, 1, 6, true);
+
+  if (!isPreviewOnly(preview)) {
+    throw new Error("Expected previewOnly data but got recipes");
+  }
+  const totalItems = preview.totalItems ?? 0;
+
+  const { safePage, safeLimit, totalPages } = validatePaginationParams({
+    page,
+    limit,
+    totalItems,
+    basePath: `/menu/${preference}`,
+  });
+
+  const data = await getMenuData(preference, safePage, safeLimit);
+
+  if (!isFullMenuData(data)) {
+    throw new Error("Invalid data structure: missing pagination or recipes");
+  }
+
+  const { recipes, pagination } = data;
 
   return (
     <section className="container mx-auto px-4 py-10 space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold">Weekly Menu</h1>
       </div>
-      {/* <pre>{JSON.stringify({ recipes, pagination }, null, 2)}</pre> */}
-      <MenuTabs page={page} limit={limit} />
+      <MenuTabs page={safePage} limit={safeLimit} active={preference} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {recipes.map((recipe: RecipeProps) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
+        {recipes && recipes.length > 0 ? (
+          recipes.map((recipe: RecipeProps) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))
+        ) : (
+          <div className="col-span-full text-center text-gray-500">
+            No recipes found.
+          </div>
+        )}
       </div>
-
-      {/* <Pagination
+      <MenuPagination
         currentPage={pagination.currentPage}
         totalPages={pagination.totalPages}
         preference={preference}
-        limit={limit}
+        limit={safeLimit}
       />
-
-      <GoBackButtonGroup />  */}
     </section>
   );
 }

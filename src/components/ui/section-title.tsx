@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/className-merge";
 import React, { HTMLAttributes } from "react";
 
 interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {

@@ -10,7 +10,15 @@ interface MenuParamsProps {
 
 interface MenuTabsProps{
   page: number,
+  limit: number,
+  active: string
+}
+
+interface PaginationProps {
+  currentPage: number,
+  totalPages: number,
+  preference: string,
   limit: number
 }
 
-export type { MenuParamsProps, MenuTabsProps }
+export type { MenuParamsProps, MenuTabsProps, PaginationProps }
