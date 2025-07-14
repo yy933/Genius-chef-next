@@ -1,7 +1,6 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -38,9 +37,6 @@ export default function MenuPagination({
           </PaginationItem>
         ))}
 
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
         {currentPage < totalPages && (
           <PaginationItem>
             <PaginationNext
