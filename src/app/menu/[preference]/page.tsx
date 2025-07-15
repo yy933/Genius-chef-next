@@ -8,7 +8,12 @@
 import RecipeCard from "@/components/Menu/RecipeCard";
 import MenuTabs from "@/components/Menu/MenuTabs";
 import MenuPagination from "@/components/Menu/Pagination";
-import { isFullMenuData, isPreviewOnly, getMenuData } from "@/lib/api/menu";
+import {
+  isFullMenuData,
+  isPreviewOnly,
+  getMenuData,
+  getMenuDataAPI,
+} from "@/lib/api/menu";
 import { MenuParamsProps, RecipeProps } from "@/types";
 import { validatePaginationParams } from "@/lib/utils/pagination";
 
@@ -16,6 +21,7 @@ export default async function WeeklyMenuPage({
   params,
   searchParams,
 }: MenuParamsProps) {
+
   const preference = params.preference;
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 6;
@@ -42,15 +48,40 @@ export default async function WeeklyMenuPage({
 
   const { recipes, pagination } = data;
 
+  const apiRecipe = await getMenuDataAPI({
+    number: 6,
+    includeTags: "vegetarian,gluten",
+    excludeTags: "dairy",
+    includeNutrition: false,
+  });
+
+  const transformedApiRecipes: RecipeProps[] = apiRecipe.map((recipe: any) => ({
+    id: recipe.id.toString(),
+    dishName: recipe.title,
+    image: recipe.image,
+    servings: recipe.servings,
+    cookingTime: recipe.readyInMinutes,
+    vegetarian: recipe.vegetarian,
+    glutenFree: recipe.glutenFree,
+    dairyFree: recipe.dairyFree,
+    ingredient: recipe.extendedIngredients?.map((ing) => ing.original) || [],
+    instruction:
+      recipe.analyzedInstructions?.[0]?.steps?.map((step: any) => step.step) ||
+      [],
+    fullDetailsUrl: recipe.sourceUrl,
+  }));
+
   return (
     <section className="container mx-auto px-4 py-10 space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold">Weekly Menu</h1>
       </div>
+
       <MenuTabs page={safePage} limit={safeLimit} active={preference} />
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {recipes && recipes.length > 0 ? (
-          recipes.map((recipe: RecipeProps) => (
+        {transformedApiRecipes && transformedApiRecipes.length > 0 ? (
+          transformedApiRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))
         ) : (

@@ -61,7 +61,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         <div className="mt-auto">
           <Dialog>
             <DialogTrigger asChild>
-              <Button size="sm" className="w-full">
+              <Button size="sm" className="w-full" disabled={ !recipe.fullDetailsUrl }>
                 See More
               </Button>
             </DialogTrigger>

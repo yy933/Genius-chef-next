@@ -1,17 +1,5 @@
 import { mockRecipes } from "@/data/mockRecipes";
-// export async function getMenuData(
-//   preference: string,
-//   page: number,
-//   limit: number
-// ) {
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/menus?preference=${preference}&page=${page}&limit=${limit}`
-//   );
-//   if (!res.ok) throw new Error("Failed to fetch menu data");
-//   return res.json();
-// }
 import { RecipeProps, GetMenuDataProps } from "@/types";
-
 
 export function isPreviewOnly(
   data: GetMenuDataProps
@@ -60,4 +48,43 @@ export async function getMenuData(
       ),
     },
   };
+}
+
+export async function getMenuDataAPI({
+  number = 10,
+  includeTags = "",
+  excludeTags = "",
+  includeNutrition = false,
+}: {
+  number?: number;
+  includeTags?: string; 
+  excludeTags?: string; 
+  includeNutrition?: boolean;
+}): Promise<RecipeProps[]> {
+  const apiKey = process.env.SPOONACULAR_API_KEY;
+  if (!apiKey)
+    throw new Error("Missing SPOONACULAR_API_KEY in environment variables");
+
+  const baseUrl = "https://api.spoonacular.com/recipes/random";
+
+  // 建立 URLSearchParams
+  const params = new URLSearchParams();
+  params.append("apiKey", apiKey);
+  params.append("number", number.toString());
+  if (includeTags) params.append("includeTags", includeTags);
+  if (excludeTags) params.append("excludeTags", excludeTags);
+  params.append("includeNutrition", includeNutrition ? "true" : "false");
+
+  const url = `${baseUrl}?${params.toString()}`;
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch recipes from Spoonacular API: ${res.status} ${res.statusText}`
+    );
+  }
+  const data = await res.json();
+
+  // 回傳API的 recipes 陣列，並且可以在這裡做型別轉換（如果需要）
+  return data.recipes as RecipeProps[];
 }
