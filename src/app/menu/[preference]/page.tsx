@@ -21,8 +21,9 @@ export default async function WeeklyMenuPage({
   params,
   searchParams,
 }: MenuParamsProps) {
+  const preference =
+    typeof params?.preference === "string" ? params.preference : "classic";
 
-  const preference = params.preference;
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 6;
 
@@ -46,30 +47,38 @@ export default async function WeeklyMenuPage({
     throw new Error("Invalid data structure: missing pagination or recipes");
   }
 
-  const { recipes, pagination } = data;
-
+  const { pagination } = data;
+ 
+  const offset = (safePage - 1) * safeLimit;
   const apiRecipe = await getMenuDataAPI({
-    number: 6,
-    includeTags: "vegetarian,gluten",
-    excludeTags: "dairy",
+    number: 20,
+    includeTags: params.preference === "vegetarian" ? "vegetarian" : "",
+    excludeTags: "",
     includeNutrition: false,
   });
+  
+  const offsetData = apiRecipe.slice(offset, offset + safeLimit);
 
-  const transformedApiRecipes: RecipeProps[] = apiRecipe.map((recipe: any) => ({
-    id: recipe.id.toString(),
-    dishName: recipe.title,
-    image: recipe.image,
-    servings: recipe.servings,
-    cookingTime: recipe.readyInMinutes,
-    vegetarian: recipe.vegetarian,
-    glutenFree: recipe.glutenFree,
-    dairyFree: recipe.dairyFree,
-    ingredient: recipe.extendedIngredients?.map((ing) => ing.original) || [],
-    instruction:
-      recipe.analyzedInstructions?.[0]?.steps?.map((step: any) => step.step) ||
-      [],
-    fullDetailsUrl: recipe.sourceUrl,
-  }));
+  const transformedApiRecipes: RecipeProps[] = Array.isArray(apiRecipe)
+  ?  offsetData.map((recipe) => {
+    return {
+      id: recipe.id.toString() || "unknown-id",
+      title: recipe.title || "Untitled Recipe",
+      image: recipe.image || "/placeholder-image.jpg",
+      servings: recipe.servings || 1,
+      readyInMinutes: recipe.readyInMinutes || 30,
+      vegetarian: recipe.vegetarian ?? false,
+      glutenFree: recipe.glutenFree ?? false,
+      dairyFree: recipe.dairyFree ?? false,
+      extendedIngredients: Array.isArray(recipe.extendedIngredients)
+        ? recipe.extendedIngredients
+        : [],
+      analyzedInstructions: Array.isArray(recipe.analyzedInstructions)
+        ? recipe.analyzedInstructions
+        : [],
+      sourceUrl: recipe.sourceUrl || "#",
+    };
+  }) : []
 
   return (
     <section className="container mx-auto px-4 py-10 space-y-6">

@@ -7,12 +7,12 @@ export default function RecipeModal({ recipe }: RecipeCardProps) {
   return (
     <DialogContent className="max-h-[90vh] overflow-y-auto">
       <DialogHeader>
-        <DialogTitle>{recipe.dishName}</DialogTitle>
+        <DialogTitle>{recipe.title}</DialogTitle>
       </DialogHeader>
 
       <Image
         src={recipe.image}
-        alt={recipe.dishName}
+        alt={recipe.title}
         width={800}
         height={400}
         className="w-full h-64 object-cover rounded"
@@ -23,7 +23,7 @@ export default function RecipeModal({ recipe }: RecipeCardProps) {
           <Users size={16} /> Servings: {recipe.servings}
         </p>
         <p className="flex items-center gap-2">
-          <Clock size={16} /> Cooking Time: {recipe.cookingTime} min
+          <Clock size={16} /> Cooking Time: {recipe.readyInMinutes} min
         </p>
       </div>
 
@@ -32,8 +32,8 @@ export default function RecipeModal({ recipe }: RecipeCardProps) {
           <ShoppingBasket size={18} /> Ingredients
         </h4>
         <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-          {recipe.ingredient.map((item, index) => (
-            <li key={index}>{item}</li>
+          {recipe.extendedIngredients.map((item, index) => (
+            <li key={index}>{item.original}</li>
           ))}
         </ul>
       </div>
@@ -43,15 +43,15 @@ export default function RecipeModal({ recipe }: RecipeCardProps) {
           <List size={18} /> Instructions
         </h4>
         <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1">
-          {recipe.instruction.map((step, index) => (
-            <li key={index}>{step}</li>
+          {recipe.analyzedInstructions[0].steps.map((step, index) => (
+            <li key={index}>{step.step}</li>
           ))}
         </ol>
       </div>
 
       <div className="pt-4">
         <a
-          href={recipe.fullDetailsUrl}
+          href={recipe.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
         >

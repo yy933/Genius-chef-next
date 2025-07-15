@@ -51,7 +51,7 @@ export async function getMenuData(
 }
 
 export async function getMenuDataAPI({
-  number = 10,
+  number = 1,
   includeTags = "",
   excludeTags = "",
   includeNutrition = false,
@@ -68,12 +68,17 @@ export async function getMenuDataAPI({
   const baseUrl = "https://api.spoonacular.com/recipes/random";
 
   // 建立 URLSearchParams
-  const params = new URLSearchParams();
+  const params = new URLSearchParams({
+    apiKey,
+    number: number.toString(),
+    addRecipeInformation: "true",
+    includeNutrition: includeNutrition ? "true" : "false",
+  });
   params.append("apiKey", apiKey);
   params.append("number", number.toString());
   if (includeTags) params.append("includeTags", includeTags);
   if (excludeTags) params.append("excludeTags", excludeTags);
-  params.append("includeNutrition", includeNutrition ? "true" : "false");
+ params.append("includeNutrition", includeNutrition ? "true" : "false");
 
   const url = `${baseUrl}?${params.toString()}`;
 
@@ -84,7 +89,12 @@ export async function getMenuDataAPI({
     );
   }
   const data = await res.json();
+  console.log(data)
 
-  // 回傳API的 recipes 陣列，並且可以在這裡做型別轉換（如果需要）
+  if (!data.recipes || !Array.isArray(data.recipes)) {
+    throw new Error("Unexpected API response structure.");
+  }
+
+  
   return data.recipes as RecipeProps[];
 }
