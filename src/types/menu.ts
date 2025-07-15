@@ -22,19 +22,16 @@ interface PaginationProps {
   limit: number;
 }
 
-type GetMenuDataProps =
-  | { previewOnly: true; totalItems: number }
-  | {
-      previewOnly?: false;
-      recipes: RecipeProps[];
-      pagination: {
-        currentPage: number;
-        totalPages: number;
-        next: number;
-        prev: number;
-        pages: number[];
-      };
-    };
+interface APIMenuDataProps {
+  recipes: RecipeProps[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    next: number;
+    prev: number;
+    pages: number[];
+  };
+}
 
 interface ValidatePaginationParamsProps {
   page: number;
@@ -47,6 +44,6 @@ export type {
   MenuParamsProps,
   MenuTabsProps,
   PaginationProps,
-  GetMenuDataProps,
+  APIMenuDataProps,
   ValidatePaginationParamsProps
 };

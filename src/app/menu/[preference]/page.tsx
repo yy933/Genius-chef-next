@@ -8,12 +8,7 @@
 import RecipeCard from "@/components/Menu/RecipeCard";
 import MenuTabs from "@/components/Menu/MenuTabs";
 import MenuPagination from "@/components/Menu/Pagination";
-import {
-  isFullMenuData,
-  isPreviewOnly,
-  getMenuData,
-  getMenuDataAPI,
-} from "@/lib/api/menu";
+import { getMenuDataAPI } from "@/lib/api/menu";
 import { MenuParamsProps, RecipeProps } from "@/types";
 import { validatePaginationParams } from "@/lib/utils/pagination";
 
@@ -21,64 +16,52 @@ export default async function WeeklyMenuPage({
   params,
   searchParams,
 }: MenuParamsProps) {
-  const preference =
-    typeof params?.preference === "string" ? params.preference : "classic";
-
+  const preference = params.preference;
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 6;
 
-  const preview = await getMenuData(preference, 1, 6, true);
+  const apiRecipe = await getMenuDataAPI({
+    number: 30,
+    includeTags: params.preference === "vegetarian" ? "vegetarian" : "",
+    excludeTags: "",
+    includeNutrition: false,
+  });
 
-  if (!isPreviewOnly(preview)) {
-    throw new Error("Expected previewOnly data but got recipes");
-  }
-  const totalItems = preview.totalItems ?? 0;
+  const recipes = apiRecipe.recipes;
+  const pagination = apiRecipe.pagination;
+  const totalItems = recipes.length;
 
-  const { safePage, safeLimit, totalPages } = validatePaginationParams({
+  const { safePage, safeLimit } = validatePaginationParams({
     page,
     limit,
     totalItems,
     basePath: `/menu/${preference}`,
   });
 
-  const data = await getMenuData(preference, safePage, safeLimit);
-
-  if (!isFullMenuData(data)) {
-    throw new Error("Invalid data structure: missing pagination or recipes");
-  }
-
-  const { pagination } = data;
- 
   const offset = (safePage - 1) * safeLimit;
-  const apiRecipe = await getMenuDataAPI({
-    number: 20,
-    includeTags: params.preference === "vegetarian" ? "vegetarian" : "",
-    excludeTags: "",
-    includeNutrition: false,
-  });
-  
-  const offsetData = apiRecipe.slice(offset, offset + safeLimit);
+  const offsetData = recipes.slice(offset, offset + safeLimit);
 
-  const transformedApiRecipes: RecipeProps[] = Array.isArray(apiRecipe)
-  ?  offsetData.map((recipe) => {
-    return {
-      id: recipe.id.toString() || "unknown-id",
-      title: recipe.title || "Untitled Recipe",
-      image: recipe.image || "/placeholder-image.jpg",
-      servings: recipe.servings || 1,
-      readyInMinutes: recipe.readyInMinutes || 30,
-      vegetarian: recipe.vegetarian ?? false,
-      glutenFree: recipe.glutenFree ?? false,
-      dairyFree: recipe.dairyFree ?? false,
-      extendedIngredients: Array.isArray(recipe.extendedIngredients)
-        ? recipe.extendedIngredients
-        : [],
-      analyzedInstructions: Array.isArray(recipe.analyzedInstructions)
-        ? recipe.analyzedInstructions
-        : [],
-      sourceUrl: recipe.sourceUrl || "#",
-    };
-  }) : []
+  const transformedApiRecipes: RecipeProps[] = Array.isArray(recipes)
+    ? offsetData.map((recipe) => {
+        return {
+          id: recipe.id.toString() || "unknown-id",
+          title: recipe.title || "Untitled Recipe",
+          image: recipe.image || "/placeholder-image.jpg",
+          servings: recipe.servings || 1,
+          readyInMinutes: recipe.readyInMinutes || 30,
+          vegetarian: recipe.vegetarian ?? false,
+          glutenFree: recipe.glutenFree ?? false,
+          dairyFree: recipe.dairyFree ?? false,
+          extendedIngredients: Array.isArray(recipe.extendedIngredients)
+            ? recipe.extendedIngredients
+            : [],
+          analyzedInstructions: Array.isArray(recipe.analyzedInstructions)
+            ? recipe.analyzedInstructions
+            : [],
+          sourceUrl: recipe.sourceUrl || "#",
+        };
+      })
+    : [];
 
   return (
     <section className="container mx-auto px-4 py-10 space-y-6">
