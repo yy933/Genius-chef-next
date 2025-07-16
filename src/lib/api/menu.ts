@@ -33,8 +33,8 @@ export async function getMenuDataAPI({
   });
   params.append("apiKey", apiKey);
   params.append("number", number.toString());
-  if (includeTags) params.append("includeTags", includeTags);
-  if (excludeTags) params.append("excludeTags", excludeTags);
+  if (includeTags) params.append("include-tags", includeTags);
+  if (excludeTags) params.append("exclude-tags", excludeTags);
  params.append("includeNutrition", includeNutrition ? "true" : "false");
 
   const url = `${baseUrl}?${params.toString()}`;
