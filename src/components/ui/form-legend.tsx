@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/className-merge";
 import { ComponentProps } from "react";
 
 export function FormLegend({ className, ...props }: ComponentProps<"legend">) {

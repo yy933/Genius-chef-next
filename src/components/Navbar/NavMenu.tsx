@@ -68,7 +68,7 @@ export default function NavMenu() {
             links={[
               {
                 label: "Our Menu",
-                href: "/menu/our-menu",
+                href: "/menu/classic",
                 description: "Check out our latest menu!",
               },
               {
