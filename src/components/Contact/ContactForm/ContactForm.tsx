@@ -17,9 +17,9 @@ import { apiSubmit } from "@/lib/utils/apiSubmit";
 
 export default function ContactForm() {
   const { form, status, onSubmit } = useFormWithStatus({
-    schema: contactFormSchema,
-    onSubmit: (data) => apiSubmit("/api/contact", data),
-  });
+      schema: contactFormSchema,
+      onSubmit: (data) => apiSubmit("/api/contact", data),
+    });
   return (
     <section className="w-full py-10">
       <div className="container w-max md:w-2/3 mx-auto px-4 border rounded-lg bg-white dark:bg-slate-800 shadow-md ">
