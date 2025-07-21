@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FaGoogle } from "react-icons/fa";
 import { loginSchema } from "@/schemas/loginFormSchema";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
+import { InputField } from "@/components/Auth/InputField";
 export default function LoginForm() {
   const { form, status, errorMessage, onSubmit } = useFormWithStatus({
     schema: loginSchema,
@@ -44,28 +45,20 @@ export default function LoginForm() {
         {/* TODO(Optional): CSRF token */}
         {/* <input type="hidden" name="_csrf" value="" /> */}
         <div>
-          <div className="my-4 space-y-3">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" {...register("email")}></Input>
-            {errors.email && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-          <div className="mb-4 space-y-3">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              {...register("password")}
-            ></Input>
-            {errors.password && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
+          <InputField
+            id="email"
+            label="Email"
+            type="email"
+            register={register}
+            error={errors.email?.message}
+          />
+          <InputField
+            id="password"
+            label="Password"
+            type="password"
+            register={register}
+            error={errors.password?.message}
+          />
 
           {status === "success" && (
             <p className="text-sm text-green-600 font-medium">
