@@ -32,12 +32,17 @@ export default function LoginForm() {
   } = form;
   return (
     <>
+      {errorMessage && (
+        <p className="text-sm text-red-500 font-medium text-center">
+          {errorMessage}
+        </p>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold">Login</h1>
         </div>
-        {/* Optional: CSRF token */}
-        <input type="hidden" name="_csrf" value="" />
+        {/* TODO(Optional): CSRF token */}
+        {/* <input type="hidden" name="_csrf" value="" /> */}
         <div>
           <div className="my-4 space-y-3">
             <Label htmlFor="email">Email</Label>
@@ -61,9 +66,6 @@ export default function LoginForm() {
               </p>
             )}
           </div>
-          {errorMessage && (
-            <p className="text-sm text-red-500 font-medium">{errorMessage}</p>
-          )}
 
           {status === "success" && (
             <p className="text-sm text-green-600 font-medium">
@@ -71,7 +73,11 @@ export default function LoginForm() {
             </p>
           )}
 
-          <Button type="submit" disabled={isSubmitting} className="w-full">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className=" w-full sm:w-1/2 sm:h-10 text-lg font-semibold mx-auto my-8 block flex items-center justify-center"
+          >
             {isSubmitting ? "Logging in..." : "Log in"}
           </Button>
         </div>
@@ -83,10 +89,15 @@ export default function LoginForm() {
           </h3>
         </div>
         <div className="flex justify-center gap-6 text-muted-foreground">
-          <FaGoogle
-            size={30}
-            className="hover:text-primary transition-colors"
-          />
+          <Button
+            variant="ghost"
+            className="bg-transparent border-none shadow-none flex items-center gap-2 justify-center"
+          >
+            <FaGoogle
+              size={45}
+              className="hover:text-primary transition-colors size-7 "
+            />
+          </Button>
         </div>
       </div>
     </>
