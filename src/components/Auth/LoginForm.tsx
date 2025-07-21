@@ -83,7 +83,6 @@ export default function LoginForm() {
           </h3>
         </div>
         <div className="flex justify-center gap-6 text-muted-foreground">
-          {" "}
           <FaGoogle
             size={30}
             className="hover:text-primary transition-colors"
