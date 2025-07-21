@@ -1,9 +1,12 @@
-import { useForm } from "react-hook-form";
+import {  UseFormRegister } from "react-hook-form";
+import { z } from "zod";
+import { loginSchema } from "@/schemas/loginFormSchema";
+type LoginFormInputs = z.infer<typeof loginSchema>;
 interface InputFieldProps {
-  id: string;
+  id: keyof LoginFormInputs;
   label: string;
   type: string;
-  register: ReturnType<typeof useForm>["register"];
+  register: UseFormRegister<LoginFormInputs>;
   error?: string;
 }
 

@@ -1,12 +1,14 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Button } from "@/components/ui/button";
 import { FaGoogle } from "react-icons/fa";
 import { loginSchema } from "@/schemas/loginFormSchema";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
-import { InputField } from "@/components/Auth/InputField";
+import  InputField  from "@/components/Auth/InputField";
+import AlertMessage from "@/components/Auth/AlertMessage" 
+
 export default function LoginForm() {
+  
   const { form, status, errorMessage, onSubmit } = useFormWithStatus({
     schema: loginSchema,
     onSubmit: async (data) => {
@@ -33,10 +35,9 @@ export default function LoginForm() {
   } = form;
   return (
     <>
-      {errorMessage && (
-        <p className="text-sm text-red-500 font-medium text-center">
-          {errorMessage}
-        </p>
+      {errorMessage && <AlertMessage type="error" message={errorMessage} />}
+      {status === "success" && (
+        <AlertMessage type="success" message="Logged in successfully!" />
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="text-center">
@@ -75,6 +76,7 @@ export default function LoginForm() {
           </Button>
         </div>
       </form>
+      
       <div className="text-center">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-center my-6">
