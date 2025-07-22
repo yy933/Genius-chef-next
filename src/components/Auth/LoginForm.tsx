@@ -1,38 +1,56 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { FaGoogle } from "react-icons/fa";
+import { FaSpinner, FaGoogle } from "react-icons/fa";
 import { loginSchema } from "@/schemas/loginFormSchema";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
-import  InputField  from "@/components/Auth/InputField";
-import AlertMessage from "@/components/Auth/AlertMessage" 
+import InputField from "@/components/Auth/InputField";
+import AlertMessage from "@/components/Auth/AlertMessage";
 
 export default function LoginForm() {
-  
-  const { form, status, errorMessage, onSubmit } = useFormWithStatus({
+  const {
+    form: { register, handleSubmit },
+    isSubmitting,
+    errors,
+    status,
+    errorMessage,
+  } = useFormWithStatus({
     schema: loginSchema,
     onSubmit: async (data) => {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      console.log("模擬登入中...", data);
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // 增加延遲時間以測試loading狀態
 
-      const result = await res.json();
+      // 模擬API響應 - 可以模擬成功或失敗的情況
+      const shouldSimulateSuccess = true; // 改為 false 來測試錯誤狀態
 
-      if (!res.ok) {
-        throw new Error(result.message || "Login failed");
+      if (shouldSimulateSuccess) {
+        // 模擬成功登入
+        window.location.href = "/dashboard";
+      } else {
+        // 模擬登入失敗
+        throw new Error("Invalid email or password");
       }
+      // 實際API請求示例（取消註釋以使用）
+      //     const res = await fetch("/api/login", {
+      //       method: "POST",
+      //       headers: { "Content-Type": "application/json" },
+      //       body: JSON.stringify(data),
+      //     });
 
-      window.location.href = "/dashboard";
+      //     const result = await res.json();
+
+      //     if (!res.ok) {
+      //       throw new Error(result.message || "Login failed");
+      //     }
+
+      //     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
+
+      //     window.location.href = "/dashboard";
+      //   },
+      // });
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = form;
   return (
     <>
       {errorMessage && (
@@ -42,7 +60,7 @@ export default function LoginForm() {
         <AlertMessage type="success" message="Logged in successfully!" />
       )}
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
         className="space-y-6"
         aria-labelledby="login-title"
       >
@@ -82,7 +100,13 @@ export default function LoginForm() {
             disabled={isSubmitting}
             className=" w-full sm:w-1/2 sm:h-10 text-lg font-semibold mx-auto my-8 block flex items-center justify-center"
           >
-            {isSubmitting ? "Logging in..." : "Log in"}
+            {isSubmitting ? (
+              <>
+                <FaSpinner className="animate-spin mr-2" /> Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
           </Button>
         </div>
       </form>
@@ -96,6 +120,7 @@ export default function LoginForm() {
         <div className="flex justify-center gap-6 text-muted-foreground">
           <Button
             variant="ghost"
+            type="button"
             className="bg-transparent border-none shadow-none flex items-center gap-2 justify-center"
             aria-label="Login with Google"
           >

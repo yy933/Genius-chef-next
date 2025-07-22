@@ -19,9 +19,11 @@ export function useFormWithStatus<
 
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (data: TInput) => {
+  const handleSubmit = form.handleSubmit(async (data: TInput) => {
     try {
+      setIsSubmitting(true);
       setStatus("idle");
       setErrorMessage("");
       await params.onSubmit(data);
@@ -35,14 +37,21 @@ export function useFormWithStatus<
       } else {
         setErrorMessage("Something went wrong.");
       }
+    } finally {
+      setIsSubmitting(false); // 確保loading狀態會被清除
     }
-  };
+  });
 
   return {
-    form,
+    form: {
+      ...form,
+      handleSubmit,
+    },
     status,
+    errors: form.formState.errors,
     errorMessage,
     setErrorMessage,
-    onSubmit: handleSubmit,
+    isSubmitting,
+    setStatus,
   };
 }
