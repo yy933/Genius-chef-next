@@ -35,13 +35,21 @@ export default function LoginForm() {
   } = form;
   return (
     <>
-      {errorMessage && <AlertMessage type="error" message={errorMessage} />}
+      {errorMessage && (
+        <AlertMessage type="error" message={errorMessage} focusOnRender />
+      )}
       {status === "success" && (
         <AlertMessage type="success" message="Logged in successfully!" />
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+        aria-labelledby="login-title"
+      >
         <div className="text-center">
-          <h1 className="text-3xl font-bold">Login</h1>
+          <h1 className="text-3xl font-bold" id="login-title">
+            Login
+          </h1>
         </div>
         {/* TODO(Optional): CSRF token */}
         {/* <input type="hidden" name="_csrf" value="" /> */}
@@ -52,6 +60,7 @@ export default function LoginForm() {
             type="email"
             register={register}
             error={errors.email?.message}
+            focusOnRender={!!errors.email}
           />
           <InputField
             id="password"
@@ -59,6 +68,7 @@ export default function LoginForm() {
             type="password"
             register={register}
             error={errors.password?.message}
+            focusOnRender={!errors.email && !!errors.password}
           />
 
           {status === "success" && (
@@ -76,7 +86,7 @@ export default function LoginForm() {
           </Button>
         </div>
       </form>
-      
+
       <div className="text-center">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-center my-6">
@@ -87,6 +97,7 @@ export default function LoginForm() {
           <Button
             variant="ghost"
             className="bg-transparent border-none shadow-none flex items-center gap-2 justify-center"
+            aria-label="Login with Google"
           >
             <FaGoogle
               size={45}
