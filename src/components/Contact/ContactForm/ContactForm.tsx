@@ -13,7 +13,7 @@ import {
 } from "@/data/contactForm";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
 import { contactFormSchema } from "@/schemas/contactFormSchema";
-import { apiSubmit } from "@/utils/apiSubmit";
+import { apiSubmit } from "@/lib/utils/apiSubmit";
 
 export default function ContactForm() {
   const { form, status, onSubmit } = useFormWithStatus({

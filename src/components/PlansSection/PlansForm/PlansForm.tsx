@@ -14,14 +14,13 @@ import {
 import AlertMessage from "@/components/ui/AlertMessage";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
 import { plansFormSchema } from "@/schemas/plansFormSchema";
-import { apiSubmit } from "@/utils/apiSubmit";
+import { apiSubmit } from "@/lib/utils/apiSubmit";
 
 export default function PlansForm() {
   const { form, status, onSubmit } = useFormWithStatus({
     schema: plansFormSchema,
     onSubmit: (data) => apiSubmit("/api/plans", data),
   });
-  
 
   return (
     <section className="w-full py-10">

@@ -1,6 +1,7 @@
 import { Control, FieldValues, Path } from "react-hook-form";
 export * from "./recipe";
 export * from "./menu";
+export * from "./auth";
 
 export interface NavLink {
   label: string;
