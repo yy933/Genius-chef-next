@@ -1,16 +1,17 @@
+import AuthFormWrapper from "@/components/Auth/AuthFormWrapper";
 import LoginForm from "@/components/Auth/LoginForm";
-import LoginImage from "@/components/Auth/LoginImage";
+import AuthImage from "@/components/Auth/AuthImage";
 export default function LoginPage() {
   return (
-    <main role="main"  className="flex flex-col md:flex-row  min-h-screen p-6 md:p-10">
-      <div className="hidden md:flex h-screen w-full md:w-2/5 max-h-64 md:max-h-full items-center justify-center p-4 ">
-        <LoginImage />
-      </div>
-      <div className="w-full md:w-3/5 flex items-center justify-center p-4">
-        <div className="w-full max-w-lg p-8 rounded-xl bg-card shadow-lg border">
-          <LoginForm />
-        </div>
-      </div>
-    </main>
+    <AuthFormWrapper
+      image={
+        <AuthImage
+          imageSrc="https://images.unsplash.com/photo-1610452220299-5edf90b8a6ed?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          altText="Meal kit login illustration of a bowl of Asian style noodles with chopsticks"
+        />
+      }
+    >
+      <LoginForm />
+    </AuthFormWrapper>
   );
 }
