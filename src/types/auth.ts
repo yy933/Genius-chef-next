@@ -1,22 +1,27 @@
 import { ReactNode } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 import { z } from "zod";
-import { loginSchema } from "@/schemas/loginFormSchema";
+import { loginSchema, signupSchema } from "@/schemas/authFormSchema";
 
 interface AuthFormWrapperProps {
   image?: ReactNode;
   children: ReactNode;
   className?: string;
 }
+
 type LoginFormInputs = z.infer<typeof loginSchema>;
-interface InputFieldProps {
-  id: keyof LoginFormInputs;
+type SignupFormInputs = z.infer<typeof signupSchema>;
+
+interface InputFieldProps<T extends FieldValues> {
+  id: keyof T;
   label: string;
   type: string;
-  register: UseFormRegister<LoginFormInputs>;
+  register: UseFormRegister<T>;
   error?: string;
   focusOnRender?: boolean;
 }
+
+
 
 interface AuthImageProps {
   imageSrc?: string;
@@ -29,4 +34,11 @@ interface AlertMessageProps {
   focusOnRender?: boolean;
 }
 
-export type { AuthFormWrapperProps, InputFieldProps, AuthImageProps, AlertMessageProps };
+export type {
+  AuthFormWrapperProps,
+  InputFieldProps,
+  SignupFormInputs,
+  LoginFormInputs,
+  AuthImageProps,
+  AlertMessageProps,
+};
