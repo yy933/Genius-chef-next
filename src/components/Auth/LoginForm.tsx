@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import BaseAuthFormLayout from "@/components/Auth/BaseAuthFormLayout";
 import { FaSpinner, FaGoogle } from "react-icons/fa";
-import { loginSchema } from "@/schemas/loginFormSchema";
+import { loginSchema } from "@/schemas/authFormSchema";
 import { useFormWithStatus } from "@/hooks/useFormWithStatus";
 import InputField from "@/components/Auth/InputField";
 import AlertMessage from "@/components/Auth/AlertMessage";
@@ -53,84 +54,51 @@ export default function LoginForm() {
 
   return (
     <>
-      {errorMessage && (
-        <AlertMessage type="error" message={errorMessage} focusOnRender />
-      )}
+      {errorMessage && <AlertMessage type="error" message={errorMessage} />}
       {status === "success" && (
-        <AlertMessage type="success" message="Logged in successfully!" />
+        <AlertMessage type="success" message="Logged in!" />
       )}
-      <form
+
+      <BaseAuthFormLayout
+        formTitle="Login"
         onSubmit={handleSubmit}
-        className="space-y-6"
-        aria-labelledby="login-title"
+        isSubmitting={isSubmitting}
+        bottomContent={
+          <div className="text-center">
+            <h3 className="text-xl font-semibold my-6">Or continue with:</h3>
+            <Button variant="ghost" type="button" className="mx-auto">
+              <FaGoogle
+                size={45}
+                className="hover:text-primary transition-colors size-7 "
+              />
+            </Button>
+          </div>
+        }
       >
-        <div className="text-center">
-          <h1 className="text-3xl font-bold" id="login-title">
-            Login
-          </h1>
-        </div>
-        {/* TODO(Optional): CSRF token */}
-        {/* <input type="hidden" name="_csrf" value="" /> */}
-        <div>
-          <InputField
-            id="email"
-            label="Email"
-            type="email"
-            register={register}
-            error={errors.email?.message}
-            focusOnRender={!!errors.email}
-          />
-          <InputField
-            id="password"
-            label="Password"
-            type="password"
-            register={register}
-            error={errors.password?.message}
-            focusOnRender={!errors.email && !!errors.password}
-          />
+        <InputField
+          id="email"
+          label="Email"
+          type="email"
+          register={register}
+          error={errors.email?.message}
+        />
+        <InputField
+          id="password"
+          label="Password"
+          type="password"
+          register={register}
+          error={errors.password?.message}
+        />
 
-          {status === "success" && (
-            <p className="text-sm text-green-600 font-medium">
-              Logged in successfully!
-            </p>
-          )}
-
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className=" w-full sm:w-1/2 sm:h-10 text-lg font-semibold mx-auto my-8 block flex items-center justify-center"
-          >
-            {isSubmitting ? (
-              <>
-                <FaSpinner className="animate-spin mr-2" /> Logging in...
-              </>
-            ) : (
-              "Login"
-            )}
-          </Button>
-        </div>
-      </form>
-
-      <div className="text-center">
-        <div className="text-center">
-          <h3 className="text-xl font-semibold text-center my-6">
-            Or login with:
-          </h3>
-        </div>
-        <div className="flex justify-center gap-6 text-muted-foreground">
-          <Button
-            variant="ghost"
-            type="button"
-            className="bg-transparent border-none shadow-none flex items-center gap-2 justify-center"
-            aria-label="Login with Google"
-          >
-            <FaGoogle
-              size={45}
-              className="hover:text-primary transition-colors size-7 "
-            />
-          </Button>
-        </div>
-      </div>
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className=" w-full sm:w-1/2 sm:h-10 text-lg font-semibold mx-auto my-8 block flex items-center justify-center"
+        >
+          {isSubmitting ? <FaSpinner className="animate-spin mr-2" /> : null}
+          Login
+        </Button>
+      </BaseAuthFormLayout>
     </>
   );
 }
